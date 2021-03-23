@@ -1,3 +1,4 @@
+@import "mixins/border-radius"
 for i in ( abs absolute ) ( rel relative ) ( fix fixed )
     .{ i[ 0 ] }
         position i[ 1 ]
