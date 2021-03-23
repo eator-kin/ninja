@@ -1,168 +1,102 @@
-@import "mixins/border-radius"
+body {
+  background-color: #100e17;
+  font-family: 'Open Sans', sans-serif;
+}
 
-@import "reset.css"
+.container {
+  position: absolute;
+  height: 300px;
+  width: 600px;
+  top: 60px;
+  left: calc(50% - 300px);
+  display: flex;
+}
 
-for i in ( abs absolute ) ( rel relative ) ( fix fixed )
-    .{ i[ 0 ] }
-        position i[ 1 ]
+.card {
+  display: flex;
+  height: 280px;
+  width: 200px;
+  background-color: #17141d;
+  border-radius: 10px;
+  box-shadow: -1rem 0 3rem #000;
+/*   margin-left: -50px; */
+  transition: 0.4s ease-out;
+  position: relative;
+  left: 0px;
+}
 
-for j in ( i inline ) ( ib inline-block ) ( b block ) ( n none ) ( f flex ) ( 'if' inline-flex ) ( g grid ) ( ig inline-grid )
-    .d{ j[ 0 ] }
-        display j[ 1 ]
+.card:not(:first-child) {
+    margin-left: -50px;
+}
 
-.vm
-    vertical-align middle
+.card:hover {
+  transform: translateY(-20px);
+  transition: 0.4s ease-out;
+}
 
-// ====================================
+.card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.4s ease-out;
+}
 
-$body-bg = #24282f
+.title {
+  color: white;
+  font-weight: 300;
+  position: absolute;
+  left: 20px;
+  top: 15px;
+}
 
-// ====================================
+.bar {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  height: 5px;
+  width: 150px;
+}
 
-body
-    background $body-bg
-    font-family 'Alegreya Sans'
+.emptybar {
+  background-color: #2e3033;
+  width: 100%;
+  height: 100%;
+}
 
-.wrapper
-    padding 15px
+.filledbar {
+  position: absolute;
+  top: 0px;
+  z-index: 3;
+  width: 0px;
+  height: 100%;
+  background: rgb(0,154,217);
+  background: linear-gradient(90deg, rgba(0,154,217,1) 0%, rgba(217,147,0,1) 65%, rgba(255,186,0,1) 100%);
+  transition: 0.6s ease-out;
+}
 
-h2
-    @extends .rel, .vm
-    padding 10px
-    padding-left 25px
-    color #ccc
-    margin 0
+.card:hover .filledbar {
+  width: 120px;
+  transition: 0.4s ease-out;
+}
 
-    strong
-        @extends .vm, .rel
-        z-index 2
-        background $body-bg
-        padding 4px 8px
+.circle {
+  position: absolute;
+  top: 150px;
+  left: calc(50% - 60px);
+}
 
-    span
-        @extends .vm
-        font-size .7em
-        color #aaa
-        margin-left 10px
+.stroke {
+  stroke: white;
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  transition: 0.6s ease-out;
+}
 
-    &:after
-        @extends .abs
-        content ''
-        z-index 1
-        bottom 50%
-        margin-bottom -2px
-        height 2px
-        left 0
-        right 0
-        background lighten( $body-bg, 10% )
+svg {
+  fill: #17141d;
+  stroke-width: 2px;
+}
 
-
-.cards
-    @extends .df
-    flex-flow row wrap
-
-    .card
-        @extends .rel
-        margin 20px
-        width 180px
-        height 270px
-        overflow hidden
-        box-shadow 0 5px 10px rgba( #000, .8 )
-        transform-origin center top
-        transform-style preserve-3d
-        transform translateZ( 0 )
-        transition .3s
-
-        img
-            width 100%
-            min-height 100%
-
-        figcaption
-            @extends .abs
-            bottom 0
-            left 0
-            right 0
-            padding 20px
-            padding-bottom 10px
-            font-size 20px
-            background none
-            color #fff
-            // text-shadow 0 1px 0 rgba( #000, .3 )
-            // background linear-gradient( to top, rgba( #000, .3 ), transparent )
-            transform translateY( 100% )
-            transition .3s
-
-        &:after
-            @extends .abs
-            content ''
-            z-index 10
-            width 200%
-            height 100%
-            top -90%
-            left -20px
-            opacity .1
-            transform rotate( 45deg )
-            background linear-gradient( to top, transparent, #fff 15%, rgba( #fff, .5 ) )
-            transition .3s
-
-        // :focus and :active just added for a some android versions to simulate hover effect
-        &:hover, &:focus, &:active
-            box-shadow 0 8px 16px 3px rgba( #000, .6 )
-            transform translateY( -3px ) scale( 1.05 ) rotateX( 15deg )
-
-            figcaption
-                transform none
-
-            &:after
-                transform rotate( 25deg )
-                top -40%
-                opacity .15
-
-
-.news
-    @extends .cards
-
-    .article
-        @extends .rel
-        overflow hidden
-        width 350px
-        height 235px
-        margin 20px
-
-        img
-            width 100%
-            min-height 100%
-            transition .2s
-
-        figcaption
-            @extends .abs
-            font-size 14px
-            text-shadow 0 1px 0 rgba( #333, .3 )
-            color #fff
-            left 0
-            right 0
-            top 0
-            bottom 0
-            padding 40px
-            box-shadow 0 0 2px rgba( #000, .2 )
-            background rgba( #061235, .6 )
-            opacity 0
-            transform scale( 1.15 )
-            transition .2s
-
-            h3
-                color #3792e3
-                font-size 16px
-                margin-bottom 0
-                font-weight bold
-
-        // :focus and :active just added for a some android versions to simulate hover effect
-        &:hover, &:focus, &:active
-
-            img
-                filter blur( 3px )
-                transform scale( .97 )
-
-            figcaption
-                opacity 1
-                transform none
+.card:hover .stroke {
+  stroke-dashoffset: 100;
+  transition: 0.6s ease-out;
+}
